@@ -1,0 +1,25 @@
+<!-- Header view -->
+<header class="main-header" ui-view="header"></header>
+
+<!-- Left side column. contains the logo and sidebar -->
+<aside class="main-sidebar" ui-view="pageNavigation"></aside>
+
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper">
+  <!-- Content Header (Page header) -->
+  <section class="content-header" ui-view="breadcrumb"></section>
+
+  <!-- Main content -->
+  <section class="content" ui-view="content"></section>
+</div>
+<!-- /.content-wrapper -->
+
+<footer class="main-footer" ui-view="footer"></footer>
+
+<!-- Control Sidebar -->
+<aside class="control-sidebar control-sidebar-dark" ui-view="sidebar"></aside>
+
+<!-- Add the sidebar's background. This div must be placed
+     immediately after the control sidebar -->
+<div class="control-sidebar-bg"></div>
+<!-- /.control-sidebar -->
