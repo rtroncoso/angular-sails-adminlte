@@ -31,7 +31,7 @@
       function factory($localStorage) {
         return {
           user: function user() {
-            return $localStorage.credentials ? $localStorage.credentials.user : {};
+            return $localStorage.credentials.user || {};
           }
         };
       }

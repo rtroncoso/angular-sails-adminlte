@@ -27,7 +27,6 @@
         $scope.user = UserService.user;
         $scope.auth = AuthService;
         $scope.navigationItems = HeaderNavigationItems;
-        console.log($scope.user);
 
         // Simple helper function which triggers user logout action.
         $scope.logout = function logout() {
@@ -79,37 +78,42 @@
   angular.module('frontend.core.layout')
     .controller('NavigationController', [
       '$scope', '$state', '$modal',
-      '_items',
-      function controller(
+      '_items', 'UserService'
+      , function controller(
         $scope, $state, $modal,
-        _items
+        _items, UserService
       ) {
-        $scope.navigationItems = _items;
 
-        // Helper function to open information modal about current GUI.
-        $scope.openInformation = function openInformation() {
-          $modal.open({
-            templateUrl: '/frontend/core/layout/partials/help.html',
-            controller: 'NavigationModalController',
-            size: 'lg',
-            resolve: {
-              '_title': function resolve() {
-                return $state.current.name.toString();
-              },
-              '_files': [
-                'NavigationInfoModalFiles',
-                function resolve(NavigationInfoModalFiles) {
-                  return NavigationInfoModalFiles.get($state.current.name.toString());
-                }
-              ],
-              '_template': function resolve() {
-                return $state.current.views['content@'].templateUrl.replace('.html', '-info.html');
+      // Inject to view
+      $scope.user = UserService.user;
+      $scope.navigationItems = _items;
+        console.log($scope.user());
+
+      // Helper function to open information modal about current GUI.
+      $scope.openInformation = function openInformation() {
+        $modal.open({
+          templateUrl: '/frontend/core/layout/partials/help.html',
+          controller: 'NavigationModalController',
+          size: 'lg',
+          resolve: {
+            '_title': function resolve() {
+              return $state.current.name.toString();
+            },
+            '_files': [
+              'NavigationInfoModalFiles',
+              function resolve(NavigationInfoModalFiles) {
+                return NavigationInfoModalFiles.get($state.current.name.toString());
               }
+            ],
+            '_template': function resolve() {
+              return $state.current.views['content@'].templateUrl.replace('.html', '-info.html');
             }
-          });
-        };
-      }
-    ])
+          }
+        });
+      };
+    }
+    ]
+  )
   ;
 
   /**
